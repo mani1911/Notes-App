@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "85370425237",
+    "project_id": "mani-notes",
+    "storage_bucket": "mani-notes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85370425237:android:004476b102f6edc7e4f09c",
+        "android_client_info": {
+          "package_name": "com.example.learndart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85370425237-me8n8q9trrfau5om9eneadh46b0hu3dl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkYfFVM8lR6z18mNMIniLHSSSDzzHcXXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85370425237-me8n8q9trrfau5om9eneadh46b0hu3dl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "85370425237-tpp3efiobfk9oh9q09vincmad33e8r1n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.learndart"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
