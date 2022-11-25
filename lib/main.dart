@@ -16,8 +16,9 @@ void main() {
       ),
       home: const HoemPage(),
       routes: {
-        '/login': (context) => const LoginView(),
-        '/register': (context) => const RegisterView(),
+        '/login/': (context) => const LoginView(),
+        '/register/': (context) => const RegisterView(),
+        '/notes/': (context) => const NotesView(),
       }));
 }
 
@@ -74,7 +75,7 @@ class _NotesViewState extends State<NotesView> {
                     if (shouldLogout) {
                       FirebaseAuth.instance.signOut();
                       Navigator.of(context)
-                          .pushNamedAndRemoveUntil('/login', (route) => false);
+                          .pushNamedAndRemoveUntil('/login/', (route) => false);
                     }
                     break;
                 }
