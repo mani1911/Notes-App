@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learndart/constants/routes.dart';
+import 'package:learndart/services/auth/auth_exception.dart';
+import 'package:learndart/services/auth/auth_service.dart';
 import 'package:learndart/views/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
@@ -53,45 +54,36 @@ class _LoginViewState extends State<LoginView> {
                 final email = _email.text;
                 final password = _password.text;
                 try {
-                  await FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: email, password: password);
-                  final currUser = FirebaseAuth.instance.currentUser;
-                  if (currUser?.emailVerified ?? false) {
+                  await AuthService.firebase()
+                      .logIn(email: email, password: password);
+                  final currUser = AuthService.firebase().currentUser;
+                  if (currUser?.isEmailVerified ?? false) {
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil(notesRoute, (route) => false);
                   } else {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         verifyEmailRoute, (route) => false);
                   }
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == "user-not-found" || e.code == "invalid-email") {
-                    await showErrorDialog(
-                      context,
-                      'User Not Found',
-                    );
-                  } else if (e.code == "wrong-password") {
-                    await showErrorDialog(
-                      context,
-                      'Wrong Password',
-                    );
-                  } else if (e.code == "network-request-failed") {
-                    await showErrorDialog(
-                      context,
-                      'Check Internet Connection',
-                    );
-                  } else {
-                    await showErrorDialog(
-                      context,
-                      'Could not Resolve Error',
-                    );
-                  }
-                  print(e.code);
-                } catch (e) {
+                } on UserNotFoundException {
                   await showErrorDialog(
                     context,
-                    'Could Not Login at the Moment',
+                    'User Not Found',
                   );
-                  print('Cannot Login at the Moment');
+                } on WrongPasswordAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Wrong Password',
+                  );
+                } on NetworkAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Check your Netwrok',
+                  );
+                } on GenericAuthException {
+                  await showErrorDialog(
+                    context,
+                    'Authentication Error',
+                  );
                 }
               },
               child: const Text('Login')),
